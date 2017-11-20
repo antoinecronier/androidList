@@ -15,6 +15,7 @@ public class EnregistrementContract {
     public static final String COL_CONTENT_TYPE = "VARCHAR(2000) NOT NULL,";
     public static final String COL_NOTE_ID = "note_id";
     public static final String COL_NOTE_ID_TYPE = "INTEGER NOT NULL,";
+
     public static final String COL_NOTE_ID_CONSTRAINT = "FOREIGN KEY(" + COL_NOTE_ID + ") " +
             "REFERENCES " + NoteContract.TABLE_NAME + " (" + NoteContract.COL_ID + ")";
 

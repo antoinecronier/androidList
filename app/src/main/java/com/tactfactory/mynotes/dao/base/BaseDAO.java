@@ -111,17 +111,17 @@ public abstract class BaseDAO<T extends BaseEntity> {
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
 
-            T item = null;
-            try {
-                item = clazz.newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-
             int index;
             do {
+                T item = null;
+                try {
+                    item = clazz.newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                
                 itemContentUpdate(item,cursor);
                 result.add(item);
             } while (cursor.moveToNext());
