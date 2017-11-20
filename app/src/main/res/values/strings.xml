@@ -3,4 +3,5 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="note_name_label">Name</string>
     <string name="note_button_content">Validate</string>
+    <string name="title_activity_note_show">NoteShowActivity</string>
 </resources>

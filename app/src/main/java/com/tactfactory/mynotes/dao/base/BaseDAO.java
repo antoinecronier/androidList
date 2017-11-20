@@ -121,7 +121,7 @@ public abstract class BaseDAO<T extends BaseEntity> {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                
+
                 itemContentUpdate(item,cursor);
                 result.add(item);
             } while (cursor.moveToNext());

@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tactfactory.mynotes.R;
-import com.tactfactory.mynotes.dao.NoteDAO;
+import com.tactfactory.mynotes.dao.EnregistrementDAO;
+import com.tactfactory.mynotes.entities.Enregistrement;
 import com.tactfactory.mynotes.entities.Note;
+import com.tactfactory.mynotes.entities.contracts.NoteContract;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class NoteFragment extends Fragment  {
+public class EnregistrementFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -34,13 +36,13 @@ public class NoteFragment extends Fragment  {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public NoteFragment() {
+    public EnregistrementFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static NoteFragment newInstance(int columnCount) {
-        NoteFragment fragment = new NoteFragment();
+    public static EnregistrementFragment newInstance(int columnCount) {
+        EnregistrementFragment fragment = new EnregistrementFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -59,7 +61,7 @@ public class NoteFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_note_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_enregistrement_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -71,10 +73,11 @@ public class NoteFragment extends Fragment  {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            //Call notes
-            NoteDAO noteDAO = new NoteDAO(this.getContext());
+            //Load enregistrement for current note
+            EnregistrementDAO enregistrementDAO = new EnregistrementDAO(this.getContext());
+            Note note = (Note) this.getActivity().getIntent().getSerializableExtra(NoteContract.INTENT_NOTE);
 
-            recyclerView.setAdapter(new MyNoteRecyclerViewAdapter(noteDAO.get(), mListener));
+            recyclerView.setAdapter(new MyEnregistrementRecyclerViewAdapter(enregistrementDAO.get(note.getId()), mListener));
         }
         return view;
     }
@@ -109,7 +112,6 @@ public class NoteFragment extends Fragment  {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentClickInteraction(Note item);
-        void onListFragmentLongClickInteraction(Note item);
+        void onListFragmentInteraction(Enregistrement item);
     }
 }

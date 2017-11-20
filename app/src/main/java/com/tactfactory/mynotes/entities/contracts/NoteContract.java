@@ -7,6 +7,7 @@ import com.tactfactory.mynotes.entities.contracts.base.SQLiteContract;
  */
 
 public class NoteContract {
+    //Database
     public static final String TABLE_NAME = "note";
 
     public static final String COL_ID = "id";
@@ -28,4 +29,7 @@ public class NoteContract {
 
     public static final String scheme =
             SQLiteContract.createTable(TABLE_NAME,COLS,COL_TYPES,COL_CONSTRAINTS);
+
+    //Activity
+    public static final String INTENT_NOTE = "intent_note";
 }

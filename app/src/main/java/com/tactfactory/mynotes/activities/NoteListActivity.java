@@ -10,12 +10,12 @@ import android.view.View;
 import com.tactfactory.mynotes.R;
 import com.tactfactory.mynotes.entities.Note;
 
-public class Main2Activity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener {
+public class NoteListActivity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_note_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -24,14 +24,19 @@ public class Main2Activity extends AppCompatActivity implements NoteFragment.OnL
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Main2Activity.this, NoteCreateActivity.class);
+                Intent intent = new Intent(NoteListActivity.this, NoteCreateActivity.class);
                 startActivity(intent);
             }
         });
     }
 
     @Override
-    public void onListFragmentInteraction(Note item) {
+    public void onListFragmentClickInteraction(Note item) {
+
+    }
+
+    @Override
+    public void onListFragmentLongClickInteraction(Note item) {
 
     }
 }

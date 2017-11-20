@@ -1,5 +1,7 @@
 package com.tactfactory.mynotes.entities;
 
+import android.os.Parcel;
+
 import com.tactfactory.mynotes.entities.base.BaseEntity;
 
 import java.util.ArrayList;

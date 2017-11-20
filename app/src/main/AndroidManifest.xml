@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.MainActivity" />
         <activity
-            android:name=".activities.Main2Activity"
+            android:name=".activities.NoteListActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,7 +21,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.NoteCreateActivity" />
-        <activity android:name=".activities.NoteShowActivity"></activity>
+        <activity
+            android:name=".activities.NoteShowActivity"
+            android:label="@string/title_activity_note_show"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tactfactory.mynotes.R;
-import com.tactfactory.mynotes.activities.NoteFragment.OnListFragmentInteractionListener;
-import com.tactfactory.mynotes.entities.Note;
+import com.tactfactory.mynotes.activities.EnregistrementFragment.OnListFragmentInteractionListener;
+import com.tactfactory.mynotes.entities.Enregistrement;
 
 import java.util.List;
 
-public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
+public class MyEnregistrementRecyclerViewAdapter extends RecyclerView.Adapter<MyEnregistrementRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Note> mValues;
+    private final List<Enregistrement> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyNoteRecyclerViewAdapter(List<Note> items, OnListFragmentInteractionListener listener) {
+    public MyEnregistrementRecyclerViewAdapter(List<Enregistrement> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -25,15 +25,14 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_note, parent, false);
+                .inflate(R.layout.fragment_enregistrement, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
-        holder.mContentView.setText(mValues.get(position).getName());
+        holder.mContentView.setText(mValues.get(position).getContenu());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,20 +40,8 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentClickInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.mItem);
                 }
-            }
-        });
-
-        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentLongClickInteraction(holder.mItem);
-                }
-                return true;
             }
         });
     }
@@ -66,14 +53,12 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
         public final TextView mContentView;
-        public Note mItem;
+        public Enregistrement mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
         }
 
