@@ -1,4 +1,4 @@
-package com.tactfactory.mynotes.activities;
+package com.tactfactory.mynotes.views.recyclers;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tactfactory.mynotes.R;
-import com.tactfactory.mynotes.activities.NoteFragment.OnListFragmentInteractionListener;
+import com.tactfactory.mynotes.views.fragments.NoteFragment.OnListFragmentInteractionListener;
 import com.tactfactory.mynotes.entities.Note;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.tactfactory.mynotes.activities;
+package com.tactfactory.mynotes.views.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import com.tactfactory.mynotes.R;
 import com.tactfactory.mynotes.dao.NoteDAO;
 import com.tactfactory.mynotes.entities.Note;
 import com.tactfactory.mynotes.entities.contracts.NoteContract;
+import com.tactfactory.mynotes.views.lists.EnregistrementListActivity;
 
 public class NoteCreateActivity extends AppCompatActivity {
 
@@ -29,7 +30,7 @@ public class NoteCreateActivity extends AppCompatActivity {
                 NoteDAO noteDAO = new NoteDAO(NoteCreateActivity.this);
                 noteDAO.insert(note);
 
-                Intent intent = new Intent(NoteCreateActivity.this, NoteShowActivity.class);
+                Intent intent = new Intent(NoteCreateActivity.this, EnregistrementListActivity.class);
                 intent.putExtra(NoteContract.INTENT_NOTE, note);
 
                 startActivity(intent);

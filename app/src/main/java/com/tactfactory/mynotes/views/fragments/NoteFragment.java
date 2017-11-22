@@ -1,4 +1,4 @@
-package com.tactfactory.mynotes.activities;
+package com.tactfactory.mynotes.views.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,10 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tactfactory.mynotes.R;
+import com.tactfactory.mynotes.views.recyclers.MyNoteRecyclerViewAdapter;
 import com.tactfactory.mynotes.dao.NoteDAO;
 import com.tactfactory.mynotes.entities.Note;
-
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
