@@ -74,6 +74,15 @@ public abstract class BaseDAO<T extends BaseEntity> {
         );
     }
 
+    public void delete(){
+
+        this.db.delete(
+                this.tableName,
+                null,
+                null
+        );
+    }
+
     public T get(T item){
         String selection = whereId;
         String[] selectionArgs = {String.valueOf(item.getId())};

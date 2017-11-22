@@ -1,12 +1,16 @@
 package com.tactfactory.mynotes.views.recyclers;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tactfactory.mynotes.R;
+import com.tactfactory.mynotes.dao.EnregistrementDAO;
 import com.tactfactory.mynotes.views.fragments.EnregistrementFragment.OnListFragmentInteractionListener;
 import com.tactfactory.mynotes.entities.Enregistrement;
 
@@ -14,8 +18,12 @@ import java.util.List;
 
 public class MyEnregistrementRecyclerViewAdapter extends RecyclerView.Adapter<MyEnregistrementRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Enregistrement> mValues;
+    private List<Enregistrement> mValues;
     private final OnListFragmentInteractionListener mListener;
+
+    public List<Enregistrement> getmValues(){
+        return mValues;
+    }
 
     public MyEnregistrementRecyclerViewAdapter(List<Enregistrement> items, OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -53,13 +61,30 @@ public class MyEnregistrementRecyclerViewAdapter extends RecyclerView.Adapter<My
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mContentView;
+        public final EditText mContentView;
         public Enregistrement mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mContentView = (EditText) view.findViewById(R.id.content);
+            mContentView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    mValues.get(getAdapterPosition()).setContenu(editable.toString());
+                    EnregistrementDAO maDAO = new EnregistrementDAO();
+                }
+            });
         }
 
         @Override

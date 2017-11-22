@@ -64,9 +64,10 @@ public class EnregistrementDAO extends BaseDAO<Enregistrement> {
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
 
-            Enregistrement item = new Enregistrement();
             int index;
             do {
+                Enregistrement item = new Enregistrement();
+
                 index = cursor.getColumnIndex("id");
                 item.setId(cursor.getLong(index));
                 index = cursor.getColumnIndex("content");

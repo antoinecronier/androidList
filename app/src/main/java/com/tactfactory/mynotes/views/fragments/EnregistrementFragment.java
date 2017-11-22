@@ -1,8 +1,9 @@
 package com.tactfactory.mynotes.views.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+//import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +31,13 @@ public class EnregistrementFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private RecyclerView recyclerView;
+
+    private MyEnregistrementRecyclerViewAdapter adapter;
+
+    public MyEnregistrementRecyclerViewAdapter getAdapter(){
+        return adapter;
+    }
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -65,7 +73,7 @@ public class EnregistrementFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -73,10 +81,12 @@ public class EnregistrementFragment extends Fragment {
             }
 
             //Load enregistrement for current note
-            EnregistrementDAO enregistrementDAO = new EnregistrementDAO(this.getContext());
+            EnregistrementDAO enregistrementDAO = new EnregistrementDAO(this.getActivity());
             Note note = (Note) this.getActivity().getIntent().getSerializableExtra(NoteContract.INTENT_NOTE);
 
-            recyclerView.setAdapter(new MyEnregistrementRecyclerViewAdapter(enregistrementDAO.get(note.getId()), mListener));
+            adapter = new MyEnregistrementRecyclerViewAdapter(enregistrementDAO.get(note.getId()), mListener);
+
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }
@@ -97,6 +107,12 @@ public class EnregistrementFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void addOneItem() {
+        this.getAdapter().getmValues().add(new Enregistrement());
+        this.getAdapter().notifyDataSetChanged();
+        recyclerView.scrollToPosition(this.getAdapter().getmValues().size()-1);
     }
 
     /**

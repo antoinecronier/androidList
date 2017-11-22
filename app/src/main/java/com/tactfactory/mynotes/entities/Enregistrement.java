@@ -14,6 +14,11 @@ public class Enregistrement extends BaseEntity {
 
     }
 
+    public Enregistrement(String contenu, double note_id){
+        this.contenu = contenu;
+        this.note_id = note_id;
+    }
+
     public String getContenu() {
         return contenu;
     }

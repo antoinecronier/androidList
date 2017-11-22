@@ -19,6 +19,11 @@ public class Note extends BaseEntity {
         this.enregistrementList = new ArrayList<Enregistrement>();
     }
 
+    public Note(String name){
+        this.enregistrementList = new ArrayList<Enregistrement>();
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
