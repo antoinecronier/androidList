@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,10 @@ public class EnregistrementFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
+    private ItemTouchHelper.SimpleCallback itemTouchHelper;
 
     private MyEnregistrementRecyclerViewAdapter adapter;
+    private ItemTouchHelper.SimpleCallback itemTouchHelperCallBack;
 
     public MyEnregistrementRecyclerViewAdapter getAdapter(){
         return adapter;
@@ -87,6 +90,21 @@ public class EnregistrementFragment extends Fragment {
             adapter = new MyEnregistrementRecyclerViewAdapter(enregistrementDAO.get(note.getId()), mListener,note, this.getActivity());
 
             recyclerView.setAdapter(adapter);
+
+            itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                    int a = 0;
+                    a++;
+                }
+            };
+
+            new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
         }
         return view;
     }

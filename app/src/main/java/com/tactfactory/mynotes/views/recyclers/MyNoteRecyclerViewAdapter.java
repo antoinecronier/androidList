@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Note> mValues;
+    public final List<Note> mValues;
     private final OnListFragmentInteractionListener mListener;
 
     public MyNoteRecyclerViewAdapter(List<Note> items, OnListFragmentInteractionListener listener) {
@@ -30,7 +30,7 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
         holder.mContentView.setText(mValues.get(position).getName());
@@ -52,7 +52,7 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentLongClickInteraction(holder.mItem);
+                    mListener.onListFragmentLongClickInteraction(holder.mItem, position);
                 }
                 return true;
             }

@@ -1,8 +1,8 @@
 package com.tactfactory.mynotes.views.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,19 +15,23 @@ import com.tactfactory.mynotes.views.recyclers.MyNoteRecyclerViewAdapter;
 import com.tactfactory.mynotes.dao.NoteDAO;
 import com.tactfactory.mynotes.entities.Note;
 
+import java.util.List;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class NoteFragment extends Fragment  {
+public class NoteFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    public List<Note> notes;
+    public MyNoteRecyclerViewAdapter myNoteRecyclerViewAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,9 +75,11 @@ public class NoteFragment extends Fragment  {
             }
 
             //Call notes
-            NoteDAO noteDAO = new NoteDAO(this.getContext());
-
-            recyclerView.setAdapter(new MyNoteRecyclerViewAdapter(noteDAO.get(), mListener));
+            NoteDAO noteDAO = new NoteDAO(this.getActivity());
+            this.notes = noteDAO.get();
+            mListener = (OnListFragmentInteractionListener) this.getActivity();
+            myNoteRecyclerViewAdapter = new MyNoteRecyclerViewAdapter(notes, mListener);
+            recyclerView.setAdapter(myNoteRecyclerViewAdapter);
         }
         return view;
     }
@@ -109,6 +115,6 @@ public class NoteFragment extends Fragment  {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentClickInteraction(Note item);
-        void onListFragmentLongClickInteraction(Note item);
+        void onListFragmentLongClickInteraction(Note item, int position);
     }
 }

@@ -1,7 +1,9 @@
 package com.tactfactory.mynotes.views.recyclers;
 
 import android.content.Context;
+import android.support.v4.widget.ViewDragHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;

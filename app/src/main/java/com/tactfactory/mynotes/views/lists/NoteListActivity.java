@@ -1,5 +1,8 @@
 package com.tactfactory.mynotes.views.lists;
 
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +19,11 @@ import com.tactfactory.mynotes.views.activities.NoteCreateActivity;
 import com.tactfactory.mynotes.views.fragments.NoteFragment;
 import com.tactfactory.mynotes.entities.Note;
 
+import java.util.List;
+
 public class NoteListActivity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener {
+
+    NoteFragment noteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,16 @@ public class NoteListActivity extends AppCompatActivity implements NoteFragment.
                 startActivity(intent);
             }
         });
+
+        noteFragment = (NoteFragment) NoteListActivity.this.getFragmentManager().findFragmentById(R.id.fragment_list_note);
+        //noteFragment.onAttach(this);
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        //TODO update list prevent item add on back after create
+        noteFragment.myNoteRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -46,8 +63,30 @@ public class NoteListActivity extends AppCompatActivity implements NoteFragment.
     }
 
     @Override
-    public void onListFragmentLongClickInteraction(Note item) {
+    public void onListFragmentLongClickInteraction(final Note item, final int position) {
 
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage("delete?")
+                .setTitle(item.getName());
+
+        builder.setPositiveButton("validate", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                noteFragment.notes.remove(item);
+                noteFragment.myNoteRecyclerViewAdapter.notifyItemRemoved(position);
+            }
+        });
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void LoadInitialData(){

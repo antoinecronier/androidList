@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.activities.NoteCreateActivity" />
+        <activity android:name=".views.activities.NoteCreateActivity" android:noHistory="true" />
         <activity
             android:name=".views.lists.EnregistrementListActivity"
             android:label="@string/title_activity_note_show"
