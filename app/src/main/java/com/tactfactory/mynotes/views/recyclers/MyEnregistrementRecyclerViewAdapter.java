@@ -1,5 +1,6 @@
 package com.tactfactory.mynotes.views.recyclers;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.tactfactory.mynotes.R;
 import com.tactfactory.mynotes.dao.EnregistrementDAO;
+import com.tactfactory.mynotes.entities.Note;
 import com.tactfactory.mynotes.views.fragments.EnregistrementFragment.OnListFragmentInteractionListener;
 import com.tactfactory.mynotes.entities.Enregistrement;
 
@@ -20,14 +22,18 @@ public class MyEnregistrementRecyclerViewAdapter extends RecyclerView.Adapter<My
 
     private List<Enregistrement> mValues;
     private final OnListFragmentInteractionListener mListener;
+    protected Context context;
+    protected Note note;
 
     public List<Enregistrement> getmValues(){
         return mValues;
     }
 
-    public MyEnregistrementRecyclerViewAdapter(List<Enregistrement> items, OnListFragmentInteractionListener listener) {
+    public MyEnregistrementRecyclerViewAdapter(List<Enregistrement> items, OnListFragmentInteractionListener listener, Note note, Context context) {
         mValues = items;
         mListener = listener;
+        this.context = context;
+        this.note = note;
     }
 
     @Override
@@ -82,7 +88,15 @@ public class MyEnregistrementRecyclerViewAdapter extends RecyclerView.Adapter<My
                 @Override
                 public void afterTextChanged(Editable editable) {
                     mValues.get(getAdapterPosition()).setContenu(editable.toString());
-                    EnregistrementDAO maDAO = new EnregistrementDAO();
+                    EnregistrementDAO maDAO = new EnregistrementDAO(MyEnregistrementRecyclerViewAdapter.this.context);
+                    for (Enregistrement enregistrement: mValues) {
+                        if (enregistrement.getId() == null){
+                            enregistrement.setNote_id(MyEnregistrementRecyclerViewAdapter.this.note.getId());
+                            maDAO.insert(enregistrement);
+                        }else{
+                            maDAO.update(enregistrement);
+                        }
+                    }
                 }
             });
         }

@@ -84,7 +84,7 @@ public class EnregistrementFragment extends Fragment {
             EnregistrementDAO enregistrementDAO = new EnregistrementDAO(this.getActivity());
             Note note = (Note) this.getActivity().getIntent().getSerializableExtra(NoteContract.INTENT_NOTE);
 
-            adapter = new MyEnregistrementRecyclerViewAdapter(enregistrementDAO.get(note.getId()), mListener);
+            adapter = new MyEnregistrementRecyclerViewAdapter(enregistrementDAO.get(note.getId()), mListener,note, this.getActivity());
 
             recyclerView.setAdapter(adapter);
         }
